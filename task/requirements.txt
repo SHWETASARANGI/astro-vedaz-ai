@@ -1,0 +1,10 @@
+# Python 3.11+ recommended
+
+google-generativeai
+openai
+python-dotenv
+pandas
+scikit-learn
+tqdm
+rapidfuzz
+jsonlines

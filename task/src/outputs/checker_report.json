@@ -1,0 +1,20 @@
+{
+  "total_chats": 30,
+  "invalid_chats": 0,
+  "unsafe_chats": 1,
+  "duplicate_chats": 0,
+  "clean_chats_used_for_split": 29,
+  "train_size": 23,
+  "test_size": 6,
+  "avg_words": 84.96666666666667,
+  "unsafe_details": [
+    {
+      "index": 28,
+      "violations": [
+        "death_prediction"
+      ]
+    }
+  ],
+  "invalid_indices": [],
+  "duplicate_indices": []
+}
