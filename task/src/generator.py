@@ -1,5 +1,5 @@
 """
-generator.py — Generates synthetic astrology assistant chats via the LLM,
+Generates synthetic astrology assistant chats via the LLM,
 validates structure, and filters out unsafe content before saving.
 
 Usage:

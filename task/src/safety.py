@@ -25,9 +25,8 @@ from enum import Enum
 from typing import Optional
 
 
-# ---------------------------------------------------------------------------
+
 # Severity tiers
-# ---------------------------------------------------------------------------
 
 class Severity(str, Enum):
     BLOCK = "block"     # hard stop — never show this content as-is
@@ -35,11 +34,9 @@ class Severity(str, Enum):
     REVIEW = "review"   # low confidence — log for human review, don't block
 
 
-# ---------------------------------------------------------------------------
 # Rule set
 # Each category maps to (severity, [patterns]).
 # Patterns are regex, matched case-insensitively against the lowercased text.
-# ---------------------------------------------------------------------------
 
 SAFETY_RULES: dict[str, dict] = {
     "death_prediction": {
@@ -202,10 +199,7 @@ NEGATORS = {
 }
 NEGATION_WINDOW = 4  # how many preceding words to scan for a negator
 
-
-# ---------------------------------------------------------------------------
 # Result types
-# ---------------------------------------------------------------------------
 
 @dataclass
 class Violation:
@@ -239,11 +233,10 @@ class SafetyResult:
                 for v in self.violations
             ],
         }
-
-
-# ---------------------------------------------------------------------------
+    
 # Logging
-# ---------------------------------------------------------------------------
+
+
 
 logger = logging.getLogger("astrology_safety")
 logger.setLevel(logging.INFO)
@@ -264,9 +257,8 @@ def _log_event(event_type: str, text: str, result: SafetyResult) -> None:
     logger.info(json.dumps(record))
 
 
-# ---------------------------------------------------------------------------
 # Negation check
-# ---------------------------------------------------------------------------
+
 
 def _is_negated(text: str, match_start: int) -> bool:
     """Look back a few words before the match for a negator."""
@@ -274,10 +266,7 @@ def _is_negated(text: str, match_start: int) -> bool:
     words = re.findall(r"[a-z']+", preceding)[-NEGATION_WINDOW:]
     return any(w in NEGATORS for w in words)
 
-
-# ---------------------------------------------------------------------------
 # Core regex pass
-# ---------------------------------------------------------------------------
 
 def check_safety(text: str) -> SafetyResult:
     """
@@ -324,10 +313,9 @@ def check_safety(text: str) -> SafetyResult:
     return result
 
 
-# ---------------------------------------------------------------------------
-# Classifier fallback (stub)
-# ---------------------------------------------------------------------------
-#
+
+# Classifier fallback 
+
 # Regex will miss paraphrased fear/certainty language. For text that passes
 # the regex pass (or lands in REVIEW), route it through a model prompted
 # directly with the fuzzy rule, and have it return structured categories.
@@ -394,10 +382,8 @@ def classify_with_model(text: str) -> Optional[SafetyResult]:
     #                      needs_review=False, highest_severity=severity)
     return None
 
-
-# ---------------------------------------------------------------------------
 # Combined check: regex first, classifier fallback for ambiguous cases
-# ---------------------------------------------------------------------------
+
 
 def check_safety_full(text: str, use_classifier_fallback: bool = True) -> SafetyResult:
     """

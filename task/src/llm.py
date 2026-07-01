@@ -22,13 +22,10 @@ load_dotenv()
 
 logger = logging.getLogger(__name__)
 
-# ---------------------------------------------------------------------------
-# Provider config — only these three lines change vs the Together AI version
-# ---------------------------------------------------------------------------
+# Provider config —
 DEFAULT_MODEL   = "gemini-2.0-flash"
 DEFAULT_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai/"
 _ENV_KEY_NAME   = "GEMINI_API_KEY"
-# ---------------------------------------------------------------------------
 
 DEFAULT_TIMEOUT        = 60   # seconds per request
 MAX_RETRIES            = 3
